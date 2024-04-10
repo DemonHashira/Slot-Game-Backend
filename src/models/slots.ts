@@ -21,7 +21,7 @@ export class Slots {
     for (let i = 0; i < this.reels.length; i++) {
       let reelSpin: Symbol[] = [];
       for (let j = 0; j < this.config.rowsCount; j++) {
-        reelSpin.push(getRandomSymbol(this.reels[i]));
+        reelSpin.push(getRandomSymbol(this.reels[i] as number[]));
       }
       spinResult.push(reelSpin);
     }
@@ -32,5 +32,9 @@ export class Slots {
       `Spin result: ${spinResult.map((reel) => reel.join(" ")).join(" | ")}`
     );
     console.log(`Payout: ${payout}`);
+  }
+
+  private calculatePayout(spinResult: Symbol[][]): number {
+    return 0;
   }
 }

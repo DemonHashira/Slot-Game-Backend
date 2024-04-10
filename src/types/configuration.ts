@@ -4,7 +4,9 @@
 export type Symbol = number;
 
 // Define the Reel type as an array of Symbol
-export type Reel = Symbol[];
+export interface Reel {
+  [index: number]: Symbol;
+}
 
 // Define the PaylinePayout type as an object with payline and multiplier properties
 export interface PaylinePayout {
