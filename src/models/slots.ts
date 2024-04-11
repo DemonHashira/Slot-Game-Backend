@@ -16,7 +16,7 @@ export class Slots {
     this.reels = config.reels;
   }
 
-  public spin(): void {
+  public spin(): { spinResult: Symbol[][]; payout: number } {
     let spinResult: Symbol[][] = [];
 
     for (let i = 0; i < this.reels.length; i++) {
@@ -33,6 +33,9 @@ export class Slots {
       `Spin result: ${spinResult.map((reel) => reel.join(" ")).join(" | ")}`
     );
     console.log(`Payout: ${payout}`);
+    console.log();
+
+    return { spinResult, payout };
   }
 
   private calculatePayout(spinResult: Symbol[][]): number {

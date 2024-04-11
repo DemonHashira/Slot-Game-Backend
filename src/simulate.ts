@@ -12,7 +12,7 @@ export function simulateSpins(spins: number) {
     const betAmount = 1;
     totalBet += betAmount;
 
-    const payout = slotMachine.spin();
+    const { payout } = slotMachine.spin();
     if (payout !== undefined) {
       totalPayout += payout;
     }
@@ -26,5 +26,3 @@ export function simulateSpins(spins: number) {
   console.log(`Total payout: ${totalPayout}`);
   console.log(`RTP: ${rtp.toFixed(2)}%`);
 }
-
-simulateSpins(1000000);
