@@ -12,7 +12,8 @@ export function simulateSpins(spins: number) {
   console.time("Simulation execution time");
 
   for (let i = 0; i < spins; i++) {
-    const betAmount = 1;
+    // We assume a random bet
+    const betAmount = Math.floor(Math.random() * 100);
     totalBet += betAmount;
 
     const { payout } = slotMachine.spin();
