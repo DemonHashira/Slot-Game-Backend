@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.12.6",
+    "markdown-notes-tree": "^1.13.0",
     "typescript": "^5.4.4"
   }
 }
