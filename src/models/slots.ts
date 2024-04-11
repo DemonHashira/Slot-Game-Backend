@@ -1,5 +1,6 @@
 import {
   GameConfig,
+  gameConfig,
   Reel,
   Symbol,
   PaylinePayout,
@@ -10,7 +11,7 @@ export class Slots {
   private config: GameConfig;
   private reels: Reel[];
 
-  constructor(config: GameConfig) {
+  constructor(config: GameConfig = gameConfig) {
     this.config = config;
     this.reels = config.reels;
   }
@@ -38,7 +39,7 @@ export class Slots {
     let totalPayout = 0;
 
     for (const line of this.config.lines) {
-      const symbolsInLine = line.map(
+      const symbolsInLine = line.pattern.map(
         (rowIndex, reelIndex) => spinResult[reelIndex][rowIndex]
       );
       const firstSymbol = symbolsInLine[0];
@@ -48,7 +49,7 @@ export class Slots {
 
       if (matches >= 3) {
         const payoutForSymbol = this.config.symbols[firstSymbol][matches - 1];
-        totalPayout += payoutForSymbol;
+        totalPayout += payoutForSymbol * line.multiplier;
       }
     }
     return totalPayout;

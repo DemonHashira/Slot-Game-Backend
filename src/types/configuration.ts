@@ -19,7 +19,7 @@ export interface GameConfig {
   reelsCount: number;
   rowsCount: number;
   symbols: { [key in Symbol]: number[] };
-  lines: number[][];
+  lines: { pattern: number[]; multiplier: number }[];
   reels: Reel[];
 }
 
@@ -40,11 +40,11 @@ export const gameConfig: GameConfig = {
   },
 
   lines: [
-    [0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2],
-    [0, 1, 0, 1, 0],
-    [1, 2, 1, 2, 1],
+    { pattern: [0, 0, 0, 0, 0], multiplier: 1 },
+    { pattern: [1, 1, 1, 1, 1], multiplier: 2 },
+    { pattern: [2, 2, 2, 2, 2], multiplier: 3 },
+    { pattern: [0, 1, 0, 1, 0], multiplier: 4 },
+    { pattern: [1, 2, 1, 2, 1], multiplier: 5 },
   ],
 
   reels: [
