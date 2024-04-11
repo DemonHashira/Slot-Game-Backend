@@ -1,10 +1,4 @@
-import {
-  GameConfig,
-  gameConfig,
-  Reel,
-  Symbol,
-  PaylinePayout,
-} from "../types/configuration";
+import { GameConfig, gameConfig, Reel, Symbol } from "../types/configuration";
 import { getRandomSymbol } from "../utils/random";
 
 export class Slots {
