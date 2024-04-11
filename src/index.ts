@@ -2,7 +2,7 @@ import * as readline from "readline";
 import { simulateSpins } from "./simulate";
 
 // Main entry point for the application
-// Here we call the simulateSpins function with 1000 spins to test the slot machine
+// Here we call the simulateSpins function with 100 spins to test the slot machine
 // as we ask the user if he wants to play
 const rl = readline.createInterface({
   input: process.stdin,

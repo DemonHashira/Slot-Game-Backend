@@ -1,7 +1,7 @@
 import { Slots } from "./models/slots";
 import { gameConfig } from "./types/configuration";
 
-// The Function to simulate the slot machine spins
+// Function to simulate the slot machine spins
 // It takes the number of spins as an argument
 // It creates a new instance of the Slots class and spins the slot machine
 export function simulateSpins(spins: number) {
