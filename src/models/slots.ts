@@ -1,6 +1,7 @@
 import { GameConfig, gameConfig, Reel, Symbol } from "../types/configuration";
 import { getRandomSymbol } from "../utils/random";
 
+// The slot class used to simulate the slot machine
 export class Slots {
   private config: GameConfig;
   private reels: Reel[];
@@ -10,6 +11,7 @@ export class Slots {
     this.reels = config.reels;
   }
 
+  // Method to simulate a spin of the slot machine
   public spin(): { spinResult: Symbol[][]; payout: number } {
     let spinResult: Symbol[][] = [];
 
@@ -32,6 +34,7 @@ export class Slots {
     return { spinResult, payout };
   }
 
+  // Method to calculate the payout for a given spin result
   private calculatePayout(spinResult: Symbol[][]): number {
     let totalPayout = 0;
 
@@ -44,6 +47,7 @@ export class Slots {
         (symbol) => symbol === firstSymbol
       ).length;
 
+      // If there are 3 or more matching symbols on the payline, this calculates the payout
       if (matches >= 3) {
         const payoutForSymbol = this.config.symbols[firstSymbol][matches - 1];
         totalPayout += payoutForSymbol * line.multiplier;

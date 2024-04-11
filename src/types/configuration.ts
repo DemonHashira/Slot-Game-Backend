@@ -1,14 +1,14 @@
-// This file is used to define the configuration type for the slot game
+// This file is used to define the configuration for the slot game
 
-// Define the Symbol type as a number
+// Symbol type as a number
 export type Symbol = number;
 
-// Define the Reel type as an array of Symbol
+// Reel type as an array of Symbol
 export interface Reel {
   [index: number]: Symbol;
 }
 
-// Define the GameConfig type as an object with reelsCount, rowsCount, symbols, lines, and reels properties
+// GameConfig type as an object with reelsCount, rowsCount, symbols, lines, and reels properties
 export interface GameConfig {
   reelsCount: number;
   rowsCount: number;
@@ -17,6 +17,8 @@ export interface GameConfig {
   reels: Reel[];
 }
 
+// The provided configuration for the slot game as stated in task
+// slightly modified to have a multiplier for each line
 export const gameConfig: GameConfig = {
   reelsCount: 5,
   rowsCount: 3,

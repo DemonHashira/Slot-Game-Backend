@@ -1,6 +1,9 @@
 import { Slots } from "./models/slots";
 import { gameConfig } from "./types/configuration";
 
+// The Function to simulate the slot machine spins
+// It takes the number of spins as an argument
+// It creates a new instance of the Slots class and spins the slot machine
 export function simulateSpins(spins: number) {
   const slotMachine = new Slots(gameConfig);
   let totalBet = 0;
@@ -18,8 +21,8 @@ export function simulateSpins(spins: number) {
     }
   }
 
+  // Print the simulation results
   console.timeEnd("Simulation execution time");
-
   const rtp = (totalPayout / totalBet) * 100;
   console.log(`Total spins: ${spins}`);
   console.log(`Total bet: ${totalBet}`);
