@@ -35,6 +35,22 @@ export class Slots {
   }
 
   private calculatePayout(spinResult: Symbol[][]): number {
-    return 0;
+    let totalPayout = 0;
+
+    for (const line of this.config.lines) {
+      const symbolsInLine = line.map(
+        (rowIndex, reelIndex) => spinResult[reelIndex][rowIndex]
+      );
+      const firstSymbol = symbolsInLine[0];
+      const matches = symbolsInLine.filter(
+        (symbol) => symbol === firstSymbol
+      ).length;
+
+      if (matches >= 3) {
+        const payoutForSymbol = this.config.symbols[firstSymbol][matches - 1];
+        totalPayout += payoutForSymbol;
+      }
+    }
+    return totalPayout;
   }
 }
