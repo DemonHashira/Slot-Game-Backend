@@ -14,8 +14,8 @@ console.log("Welcome to the slot machine simulator!");
 rl.question("Are you ready to play? (yes/no) ", (answer) => {
   if (answer.toLowerCase() === "yes") {
     console.log("Let's get started!");
-    console.log("Performing 1000 spins: ");
-    simulateSpins(1000);
+    console.log("Performing 100 spins: ");
+    simulateSpins(100);
   } else {
     console.log("Maybe next time!");
   }

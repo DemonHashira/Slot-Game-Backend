@@ -25,9 +25,10 @@ export class Slots {
 
     let payout = this.calculatePayout(spinResult);
 
-    console.log(
-      `Spin result: ${spinResult.map((reel) => reel.join(" ")).join(" | ")}`
-    );
+    console.log("Spin result:");
+    spinResult[0].forEach((_, i) => {
+      console.log(spinResult.map((reel) => reel[i]).join(" | "));
+    });
     console.log(`Payout: ${payout}`);
     console.log();
 
@@ -38,19 +39,35 @@ export class Slots {
   private calculatePayout(spinResult: Symbol[][]): number {
     let totalPayout = 0;
 
+    const findMatches = (symbols: Symbol[], fromLeft: boolean = true) => {
+      let matchCount = 1;
+      let symbolToMatch = symbols[fromLeft ? 0 : symbols.length - 1];
+      for (let i = 1; i < symbols.length; i++) {
+        const symbolIndex = fromLeft ? i : symbols.length - 1 - i;
+        if (symbols[symbolIndex] === symbolToMatch) {
+          matchCount++;
+        } else {
+          break;
+        }
+      }
+      return { matchCount, symbol: symbolToMatch };
+    };
+
     for (const line of this.config.lines) {
       const symbolsInLine = line.pattern.map(
         (rowIndex, reelIndex) => spinResult[reelIndex][rowIndex]
       );
-      const firstSymbol = symbolsInLine[0];
-      const matches = symbolsInLine.filter(
-        (symbol) => symbol === firstSymbol
-      ).length;
+      const leftMatch = findMatches(symbolsInLine, true);
+      const rightMatch = findMatches(symbolsInLine, false);
+      const bestMatch =
+        leftMatch.matchCount > rightMatch.matchCount ? leftMatch : rightMatch;
 
-      // If there are 3 or more matching symbols on the payline, this calculates the payout
-      if (matches >= 3) {
-        const payoutForSymbol = this.config.symbols[firstSymbol][matches - 1];
-        totalPayout += payoutForSymbol * line.multiplier;
+      if (bestMatch.matchCount >= 3 && this.config.symbols[bestMatch.symbol]) {
+        const payoutForSymbol =
+          this.config.symbols[bestMatch.symbol][bestMatch.matchCount - 1];
+        if (payoutForSymbol) {
+          totalPayout += payoutForSymbol * line.multiplier;
+        }
       }
     }
     return totalPayout;
