@@ -15,6 +15,7 @@ rl.question("Are you ready to play? (yes/no) ", (answer) => {
   if (answer.toLowerCase() === "yes") {
     console.log("Let's get started!");
     console.log("Performing 1000 spins: ");
+    console.log();
     simulateSpins(1000);
   } else {
     console.log("Maybe next time!");

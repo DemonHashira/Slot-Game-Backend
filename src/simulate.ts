@@ -8,6 +8,7 @@ export function simulateSpins(spins: number) {
   const slotMachine = new Slots(gameConfig);
   let totalBet = 0;
   let totalPayout = 0;
+  let winsCount = 0;
 
   console.time("Simulation execution time");
 
@@ -19,6 +20,7 @@ export function simulateSpins(spins: number) {
     const { payout } = slotMachine.spin();
     if (payout !== undefined) {
       totalPayout += payout;
+      if (payout > 0) winsCount++;
     }
   }
 
@@ -27,6 +29,7 @@ export function simulateSpins(spins: number) {
   const rtp = (totalPayout / totalBet) * 100;
   console.log(`Total spins: ${spins}`);
   console.log(`Total bet: ${totalBet}`);
+  console.log(`Total wins: ${winsCount}`);
   console.log(`Total payout: ${totalPayout}`);
   console.log(`RTP: ${rtp.toFixed(2)}%`);
 }
