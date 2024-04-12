@@ -3,9 +3,11 @@ import { getRandomSymbol } from "../utils/random";
 
 // The slot class used to simulate the slot machine
 export class Slots {
+  // Declaring the config and reels properties
   private config: GameConfig;
   private reels: Reel[];
 
+  // Constructor to initialize the slot machine with a given configuration
   constructor(config: GameConfig = gameConfig) {
     this.config = config;
     this.reels = config.reels;
@@ -24,6 +26,7 @@ export class Slots {
       spinResult.push(reelSpin);
     }
 
+    // Calculating the payout for the spin result
     let payout = this.calculatePayout(spinResult);
 
     // Printing the result of the spin
@@ -41,39 +44,29 @@ export class Slots {
   private calculatePayout(spinResult: Symbol[][]): number {
     let totalPayout = 0;
 
-    // Helper function to find matching symbols in a line
-    const findMatches = (symbols: Symbol[], fromLeft: boolean = true) => {
-      let matchCount = 1;
-      let symbolToMatch = symbols[fromLeft ? 0 : symbols.length - 1];
-      for (let i = 1; i < symbols.length; i++) {
-        const symbolIndex = fromLeft ? i : symbols.length - 1 - i;
-        if (symbols[symbolIndex] === symbolToMatch) {
-          matchCount++;
-        } else {
-          break;
-        }
-      }
-      return { matchCount, symbol: symbolToMatch };
-    };
-
-    // Iterating over each line and calculating the payout
+    // Looping through each line and checking if there is a winning combination
     for (const line of this.config.lines) {
       const symbolsInLine = line.pattern.map(
         (rowIndex, reelIndex) => spinResult[reelIndex][rowIndex]
       );
 
-      // Checking for matches from left and right
-      const leftMatch = findMatches(symbolsInLine, true);
-      const rightMatch = findMatches(symbolsInLine, false);
-      const bestMatch =
-        leftMatch.matchCount > rightMatch.matchCount ? leftMatch : rightMatch;
+      // Counting the number of occurrences of each symbol in the line
+      const symbolCounts = symbolsInLine.reduce(
+        (counts: { [key: number]: number }, symbol) => {
+          counts[symbol] = (counts[symbol] || 0) + 1;
+          return counts;
+        },
+        {}
+      );
 
-      // If we have at least 3 matching symbols and the symbol exists in the config we calculate the payout
-      if (bestMatch.matchCount >= 3 && this.config.symbols[bestMatch.symbol]) {
-        const payoutForSymbol =
-          this.config.symbols[bestMatch.symbol][bestMatch.matchCount - 1];
-        if (payoutForSymbol) {
-          totalPayout += payoutForSymbol * line.multiplier;
+      // Checking if there are 3 or more occurrences of a symbol in the line
+      for (const symbol in symbolCounts) {
+        if (symbolCounts[symbol] >= 3 && this.config.symbols[symbol]) {
+          const payoutForSymbol =
+            this.config.symbols[symbol][symbolCounts[symbol] - 1];
+          if (payoutForSymbol) {
+            totalPayout += payoutForSymbol * line.multiplier;
+          }
         }
       }
     }
