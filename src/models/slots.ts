@@ -5,7 +5,7 @@ import { getRandomSymbol } from "../utils/random";
 export class Slots {
   // Declaring the config and reels properties
   private config: GameConfig;
-  private reels: Reel[];
+  private readonly reels: Reel[];
 
   // Constructor to initialize the slot machine with a given configuration
   constructor(config: GameConfig = gameConfig) {
