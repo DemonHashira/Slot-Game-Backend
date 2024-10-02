@@ -19,8 +19,12 @@ cd slot-game-backend
 ```
 Install the required npm packages:
 ```bash
-npx tsc
 npm install
+```
+
+Compile TypeScript
+```bash
+npx tsc
 ```
 
 ### Running the Game
